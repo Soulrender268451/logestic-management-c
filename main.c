@@ -13,6 +13,50 @@ float rate[3] = {30, 40, 80};
 float speed[3] = {60, 50, 45};
 float efficiency[3] = {12, 6, 4};
 
+
+void manageCities();
+void manageDistances();
+void handleDelivery();
+void showCities();
+
+int main()
+{
+    int choice;
+
+    do
+    {
+        printf("\n===== MANAGEMENT SYSTEM =====\n");
+        printf("1. Manage Cities\n");
+        printf("2. Manage Distances\n");
+        printf("3. New Delivery Request\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+        case 1:
+            manageCities();
+            break;
+        case 2:
+            manageDistances();
+            break;
+        case 3:
+            handleDelivery();
+            break;
+        case 4:
+            printf("Exiting program...\n");
+            break;
+        default:
+            printf("Invalid choice!\n");
+        }
+    }
+    while(choice = 4);
+
+    return 0;
+}
+
+
 void showCities()
 {
     int i;
