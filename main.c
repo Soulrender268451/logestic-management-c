@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define FUEL_PRICE 310.0
+
 char cities[30][50];
 int cityCount = 0;
 int distanceMatrix[30][30];
@@ -147,4 +149,73 @@ void manageDistances()
     }
 }
 
+void handleDelivery()
+{
+    int s, d, v;
+    float w;
+    float dist, cost, fuelUsed, fuelCost, totalCost, profit, charge, time;
 
+    if(cityCount < 2)
+    {
+        printf("Add at least 2 cities first!\n");
+        return;
+    }
+
+    showCities();
+    printf("Enter source city index: ");
+    scanf("%d", &s);
+    printf("Enter destination city index: ");
+    scanf("%d", &d);
+    printf("Enter weight (kg): ");
+    scanf("%f", &w);
+
+    printf("\nVehicle Types:\n1. Van\n2. Truck\n3. Lorry\nEnter choice: ");
+    scanf("%d", &v);
+    v = v - 1;
+
+    if(s == d)
+    {
+        printf("Source and destination cannot be same!\n");
+        return;
+    }
+    if(v < 0 || v > 2)
+    {
+        printf("Invalid vehicle type!\n");
+        return;
+    }
+    if(w > capacity[v])
+    {
+        printf("Weight exceeds vehicle capacity!\n");
+        return;
+    }
+
+    dist = distanceMatrix[s][d];
+    if(dist <= 0)
+    {
+        printf("Distance not available!\n");
+        return;
+    }
+
+    cost = dist * rate[v] * (1 + w / 10000);
+    fuelUsed = dist / efficiency[v];
+    fuelCost = fuelUsed * FUEL_PRICE;
+    totalCost = cost + fuelCost;
+    profit = cost * 0.25;
+    charge = totalCost + profit;
+    time = dist / speed[v];
+
+    printf("\n==============================\n");
+    printf("DELIVERY COST ESTIMATION\n");
+    printf("------------------------------\n");
+    printf("From: %s\nTo: %s\n", cities[s], cities[d]);
+    printf("Vehicle: %s\nWeight: %.2f kg\n", vehicleNames[v], w);
+    printf("Distance: %.2f km\n", dist);
+    printf("------------------------------\n");
+    printf("Base Cost: %.2f LKR\n", cost);
+    printf("Fuel Cost: %.2f LKR\n", fuelCost);
+    printf("Operational Cost: %.2f LKR\n", totalCost);
+    printf("Profit: %.2f LKR\n", profit);
+    printf("Customer Charge: %.2f LKR\n", charge);
+    printf("Estimated Time: %.2f hours\n", time);
+    printf("==============================\n");
+}
