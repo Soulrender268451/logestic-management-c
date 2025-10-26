@@ -130,3 +130,21 @@ void manageDistances()
     printf("Distance added successfully.\n");
 
 
+    printf("\n--- Distance Table ---\n   ");
+    for(i = 0; i < cityCount; i++)
+    {
+        printf("%8s", cities[i]);
+    }
+    printf("\n");
+    for(i = 0; i < cityCount; i++)
+    {
+        printf("%8s", cities[i]);
+        for(j = 0; j < cityCount; j++)
+        {
+            printf("%8d", distanceMatrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
