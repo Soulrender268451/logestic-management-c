@@ -97,3 +97,36 @@ void manageCities()
         }
     }
 }
+
+
+void manageDistances()
+{
+    int a, b, d, i, j;
+
+    if(cityCount < 2)
+    {
+        printf("Add at least 2 cities first!\n");
+        return;
+    }
+
+    showCities();
+    printf("Enter source city index: ");
+    scanf("%d", &a);
+    printf("Enter destination city index: ");
+    scanf("%d", &b);
+
+    if(a == b)
+    {
+        printf("Distance from a city to itself is 0.\n");
+        distanceMatrix[a][b] = distanceMatrix[b][a] = 0;
+        return;
+    }
+
+    printf("Enter distance between %s and %s (km): ", cities[a], cities[b]);
+    scanf("%d", &d);
+    distanceMatrix[a][b] = d;
+    distanceMatrix[b][a] = d;
+
+    printf("Distance added successfully.\n");
+
+
